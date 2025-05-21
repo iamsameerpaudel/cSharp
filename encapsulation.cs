@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System;
 class bankAccount
 {
@@ -14,7 +15,9 @@ class bankAccount
     private string accountAccessPassword;
 
 
-    private string[] chars = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+    private string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; //This would be better ig
+
+    // private string[] chars = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
     bankAccount() { }
     public bankAccount(string name, string gender, string address, string phone, string email)
@@ -30,16 +33,26 @@ class bankAccount
         System.Console.WriteLine("--------------------------------");
         this.accountNumber = createaccNumber();
         System.Console.WriteLine($"Your account number is {this.accountNumber}");
-        System.Console.WriteLine("Press Enter to continue");
-        Console.ReadLine();
 
         System.Console.WriteLine("--------------------------------");
-        System.Console.WriteLine("Press 'y' to manually create a password.");
+        System.Console.WriteLine("Enter 'y' to manually create a password or any other key to generate a random password");
         string input = Console.ReadLine();
         if (input == "y")
         {
-            System.Console.WriteLine("Please enter a 10 character long password");
-            this.accountAccessPassword = Console.ReadLine();
+            string passInput;
+            bool isValid;
+            do
+            {
+                string pattern = $"^[{chars}]*$"; //Only the characters in chars are allowed
+                System.Console.WriteLine("Please enter a password - characters allowed: a-z, A-Z, 0-9");
+                passInput = Console.ReadLine();
+                isValid = Regex.IsMatch(passInput, pattern); // Checks if passinput matches the pattern above
+                if (!isValid)
+                {
+                    System.Console.WriteLine("PLEASE ENTER A VALID PASSWORD!!!");
+                }
+            } while (!isValid);
+            this.accountAccessPassword = passInput;
         }
         else
         {
@@ -60,7 +73,7 @@ class bankAccount
         System.Console.WriteLine($"Phone number: {this.accountHoldersPhone}");
         System.Console.WriteLine($"Email: {this.accountHoldersEmail}");
         System.Console.WriteLine($"Account number: {this.accountNumber}");
-        System.Console.WriteLine($"Balance: {this.balance}");
+        System.Console.WriteLine($"Balance: ${this.balance}");
         System.Console.WriteLine("--------------------------------");
     }
 
@@ -72,6 +85,7 @@ class bankAccount
         {
             System.Console.WriteLine(s);
         }
+        System.Console.WriteLine($"Current Balance: ${this.balance}");
         System.Console.WriteLine("--------------------------------");
     }
 
@@ -175,7 +189,6 @@ public class encapsulation
     {
         bankAccount b1 = new bankAccount("Sameer", "Male", "Hetauda", "9999999999", "gmail@gmail.com");
         b1.depositAmount(1000);
-        b1.depositAmount(2900);
         b1.depositAmount(80);
         b1.withdrawAmount(700);
         b1.displayStatement();

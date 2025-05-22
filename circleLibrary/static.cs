@@ -52,7 +52,7 @@ static class Circle
         List<double> pointY = new List<double>();
         for (int i = 0; i < numberOfPoints; i++)
         {
-            double angle = 2 * Math.PI * i / numberOfPoints;
+        double angle = 2 * Math.PI * i / numberOfPoints;
         double x = radius * Math.Cos(angle) + centerX;
         double y = radius * Math.Sin(angle) + centerY;
         pointX.Add(Math.Round(x, 3));
@@ -73,13 +73,13 @@ class MainClass
 {
     public static void Main(string[] args)
     {
-        // Console.WriteLine(Circle.area(5));
-        // var perimeter = Circle.perimeterOfASector(angle: 25, 5);
-        // var otherPerimeter = Circle.perimeterOfASector(radius: 5, Circle.arcLength(angle: 25, 5));
-        // var eqn = Circle.equationOfCircle(5, 7, 14);
-        // System.Console.WriteLine(perimeter);
-        // System.Console.WriteLine(otherPerimeter);
-        // System.Console.WriteLine(eqn);
+        Console.WriteLine(Circle.area(5));
+        var perimeterWithAngleAndRadius  = Circle.perimeterOfASector(angle: 25, 5);
+        var perimeterWithRadiusAndArcLength = Circle.perimeterOfASector(radius: 5, Circle.arcLength(angle: 25, 5));
+        System.Console.WriteLine(perimeterWithAngleAndRadius);
+        System.Console.WriteLine(perimeterWithRadiusAndArcLength);
+        var eqn = Circle.equationOfCircle(5, 7, 14);
+        System.Console.WriteLine(eqn);
         Circle.generateCircle(190, 17,17,98);
     }
 }

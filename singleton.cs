@@ -37,28 +37,3 @@ class Hero
         s6.display(); //6
     }
 }
-
-
-public sealed class MyClass
-{
-    private static volatile IMyObject instance;
-    private static Object syncRootObject = new Object();
-
-    public static IMyObject Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                lock (syncRootObject)
-                {
-                    if (instance == null)
-                    {
-                        instance = new MyObject();
-                    }
-                }
-            }
-            return instance;
-        }
-    }
-}

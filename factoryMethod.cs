@@ -78,7 +78,7 @@ public class MacBook : AppleDevices
 
 public class AppleFactory
 {
-    public AppleDevices CreateDevice(string deviceType)
+    public AppleDevices CreateDevice(string deviceType, string name,int memory, int storage, int battery,string cpu="", string processor="",int cameramegapixels = 0)
     {
         return deviceType.ToLower() switch
         {
@@ -94,9 +94,9 @@ class Program
     static void Main()
     {
         AppleFactory factory = new AppleFactory();
-        AppleDevices mb = factory.CreateDevice("macbook");
+        AppleDevices mb = factory.CreateDevice("macbook","SameerMacBook",64,1024,14000,"M3 MAX");
         mb.DisplayDetails();
-        AppleDevices ip = factory.CreateDevice("iphone");
+        AppleDevices ip = factory.CreateDevice("iphone","Iphone",12,128,5000,processor:"A18",cameramegapixels:50);
         ip.DisplayDetails();
     }
 }

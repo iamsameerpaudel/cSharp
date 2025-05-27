@@ -18,54 +18,95 @@ public class Human
         System.Console.WriteLine($"Torso: {HasTorso}");
         System.Console.WriteLine($"Arms: {NoOfArms}");
         System.Console.WriteLine($"Legs: {NoOfLegs}");
+        System.Console.WriteLine("");
     }
 
 }
 
+public class Director
+{
+    private IHumanMaker _maker;
+    public Director(IHumanMaker maker)
+    {
+        _maker = maker;
+    }
 
-public class HumanMaker
+    public Human MakeMan(string name)
+    {
+        return _maker.setName(name).setSex("male").setHead(true).setNeck(true).setTorso(true).setArms(2).setLegs(2).make();
+    }
+    public Human MakeWoman(string name)
+    {
+        return _maker.setName(name).setSex("female").setHead(true).setNeck(true).setTorso(true).setArms(2).setLegs(2).make();
+    }
+    public void Display()
+    {
+        _maker.Display();
+    }
+
+}
+
+public interface IHumanMaker
+{
+    IHumanMaker setName(string name);
+    IHumanMaker setSex(string sex);
+    IHumanMaker setHead(bool hasHead);
+    IHumanMaker setNeck(bool hasNeck);
+    IHumanMaker setTorso(bool hasTorso);
+    IHumanMaker setArms(int NoOfArms);
+    IHumanMaker setLegs(int NoOfLegs);
+    Human make();
+    void Display();
+}
+
+public class HumanMaker : IHumanMaker
 {
     private Human _human = new Human();
 
-
-    public HumanMaker setName(string name)
+    public IHumanMaker setName(string name)
     {
         _human.Name = name;
         return this;
     }
-    public HumanMaker setSex(string sex)
+    public IHumanMaker setSex(string sex)
     {
         _human.Sex = sex;
         return this;
     }
-    public HumanMaker setHead(bool hasHead)
+    public IHumanMaker setHead(bool hasHead)
     {
         _human.HasHead = hasHead;
         return this;
     }
-    public HumanMaker setNeck(bool hasNeck)
+    public IHumanMaker setNeck(bool hasNeck)
     {
         _human.HasNeck = hasNeck;
         return this;
     }
-    public HumanMaker setTorso(bool hasTorso)
+    public IHumanMaker setTorso(bool hasTorso)
     {
         _human.HasTorso = hasTorso;
         return this;
     }
-    public HumanMaker setArms(int NoOfArms)
+    public IHumanMaker setArms(int NoOfArms)
     {
         _human.NoOfArms = NoOfArms;
         return this;
     }
-    public HumanMaker setLegs(int NoOfLegs)
+    public IHumanMaker setLegs(int NoOfLegs)
     {
         _human.NoOfLegs = NoOfLegs;
         return this;
     }
     public Human make()
     {
-        return _human;
+        var builtHuman = _human;
+        _human = new Human();
+        return builtHuman;
+    }
+    public void Display()
+    {
+        _human.DisplayDetails();
     }
 
 }
@@ -75,8 +116,11 @@ class program
 {
     public static void Main(string[] args)
     {
-    Human h1 = new HumanMaker().setName("Sam").setHead(true).setNeck(true).setSex("male").setArms(2).setLegs(2).setTorso(true).make();
-        h1.DisplayDetails();
+        Director d1 = new Director(new HumanMaker());
+        Human man = d1.MakeMan("Sameer");
+        man.DisplayDetails();
 
+        Human woman = d1.MakeWoman("Shree");
+        woman.DisplayDetails();
     }
 }

@@ -82,8 +82,8 @@ public class AppleFactory
     {
         return deviceType.ToLower() switch
         {
-            "iphone" => new IPhone(),
-            "macbook" => new MacBook(),
+            "iphone" => new IPhone(name,processor,memory,storage,battery,cameramegapixels),
+            "macbook" => new MacBook(name,cpu,memory,storage,battery),
             _ => throw new ArgumentException("Invalid shape type")
         };
     }

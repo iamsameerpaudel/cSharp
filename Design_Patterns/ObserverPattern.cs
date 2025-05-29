@@ -94,7 +94,6 @@ class CurrentConditionsDisplay : IObserver, DisplayElement
     public void Display()
     {
         System.Console.WriteLine($"Current conditions: {temperature} C degree, {humidity}% humidity and {pressure} pressure");
-        System.Console.WriteLine("");
     }
 }
 
@@ -104,7 +103,6 @@ class StatisticsDisplay : IObserver, DisplayElement
     private float humidity;
     private float pressure;
     private ISubject weatherdata;
-    private string name = "Sam";
     public StatisticsDisplay(ISubject weatherdata)
     {
         this.weatherdata = weatherdata;
@@ -115,14 +113,11 @@ class StatisticsDisplay : IObserver, DisplayElement
         this.temperature = temp;
         this.humidity = humidity;
         this.pressure = pressure;
-        name = "Sameer";
         Display();
     }
     public void Display()
     {
         System.Console.WriteLine($"Statistics: {temperature} C degree, {humidity}% humidity and {pressure} pressure");
-        System.Console.WriteLine(name);
-        System.Console.WriteLine("");
 
     }
 }
@@ -150,7 +145,6 @@ class ForecastDisplay : IObserver, DisplayElement
     {
         Random random = new Random();
         System.Console.WriteLine($"Forecast: {forcastTexts[random.Next(forcastTexts.Length)]}");
-        System.Console.WriteLine("");
 
     }
 }
@@ -165,7 +159,9 @@ public class Station
         ForecastDisplay forecast = new ForecastDisplay(weather);
 
         weather.SetMeasurements(40, 76, 56.3f);
+        System.Console.WriteLine("");
         weather.SetMeasurements(35, 58, 34.6f);
+        System.Console.WriteLine("");
         weather.SetMeasurements(40, 76, 28.9f);
     }
 }
